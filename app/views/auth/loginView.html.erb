@@ -1,0 +1,18 @@
+<h1>Login</h1>
+<%= form_tag '/users/login' do %>
+	<%= label_tag :username%>
+	<%= text_field_tag :username %> <br>
+	<%= label_tag :password%>
+	<%= password_field_tag :password%><br>
+	<%= submit_tag "Login"%>
+<%end%>
+<% if @user.errors.any? %>
+  <div id="error_explanation" style="color: red;">
+    <h2><%= pluralize(@user.errors.count, "error") %> occured in your input:</h2>
+    <ul>
+      <% @user.errors.each do |error| %>
+        <li><%= error.message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

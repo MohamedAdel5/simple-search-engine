@@ -1,0 +1,24 @@
+<h1>Signup</h1>
+<div>
+	<%= form_with model: @user, url: users_signup_path(@user) do |f| %>
+		<%= f.label :name %> <br>
+		<%= f.text_field :name, placeholder: "Name" %> <br>
+		<%= f.label :username %> <br>
+		<%= f.text_field :username, placeholder: "Username" %> <br>
+		<%= f.label :password %> <br>
+		<%= f.password_field :password, placeholder: "Password" %> <br>
+		<%= f.label :password_confirmation %> <br>
+		<%= f.password_field :password_confirmation, placeholder: "Confirm Password" %> <br>
+		<%= f.submit "Create Account" %> <br>
+	<% end %>
+</div>
+<% if @user.errors.any? %>
+  <div id="error_explanation" style="color: red;">
+    <h2><%= pluralize(@user.errors.count, "error") %> occured in your input:</h2>
+    <ul>
+      <% @user.errors.each do |error| %>
+        <li><%= error.message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
