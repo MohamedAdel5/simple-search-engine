@@ -1,11 +1,24 @@
-<h1>Profile</h1>
-<p>Welcome, <%= current_user.name %>!</p>
-<%= button_to "Logout", '/users/logout', method: :get%>
+<%= button_to "Logout", '/users/logout', method: :post, class: "btn btn-primary"%>
+<div class="container">
+	<h1  class="text-center">Profile</h1>
+	<p class="text-center">Welcome, <%= current_user.name %>!</p>
 
-<pre> 
-	This is your Profile
-	bla
-	bla
-	bla
-</pre>
-
+		<div class="container mt-5 ma-2">
+			<div class="row">
+				<h2 class="col-10">You searched for: </h2>
+				<div class="col-2">
+					<%= button_to "Search", '/searches', method: :get, class: "btn btn-primary"%>
+				</div>
+			</div>
+			<div class="card container pa-2">
+					<% if @searches.any? %>
+						<% @searches.each do |search| %>
+							<ul class="list-group my-2">
+								<li class="list-group-item">Word: <%= search.word %></li>
+								<li class="list-group-item">Starting from: <%= search.start_url %></li>
+							</ul>
+						<%end%>
+					<%end%>
+			</div>
+		</div>
+</div>

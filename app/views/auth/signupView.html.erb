@@ -1,24 +1,34 @@
-<h1>Signup</h1>
-<div>
+<div class="container">
+	<h1>Signup</h1>
 	<%= form_with model: @user, url: users_signup_path(@user) do |f| %>
-		<%= f.label :name %> <br>
-		<%= f.text_field :name, placeholder: "Name" %> <br>
-		<%= f.label :username %> <br>
-		<%= f.text_field :username, placeholder: "Username" %> <br>
-		<%= f.label :password %> <br>
-		<%= f.password_field :password, placeholder: "Password" %> <br>
-		<%= f.label :password_confirmation %> <br>
-		<%= f.password_field :password_confirmation, placeholder: "Confirm Password" %> <br>
-		<%= f.submit "Create Account" %> <br>
+	<div class="form-group">
+		<%= f.label :name %> 
+		<%= f.text_field :name, class: 'form-control', placeholder: "Name" %> 
+	</div>
+	<div class="form-group">
+		<%= f.label :username %> 
+		<%= f.text_field :username, class: 'form-control', placeholder: "Username" %> 
+	</div>
+	<div class="form-group">
+		<%= f.label :password %> 
+		<%= f.password_field :password, class: 'form-control', placeholder: "Password" %> 
+	</div>
+	<div class="form-group">
+		<%= f.label :password_confirmation %> 
+		<%= f.password_field :password_confirmation, class: 'form-control', placeholder: "Confirm Password" %> 
+	</div>
+	<div class="form-group">
+		<%= f.submit "Create Account", class: "btn btn-primary" %> 
+	</div>
+	<% end %>
+	<% if @user.errors.any? %>
+		<div class="container" id="error_explanation" style="color: red;">
+			<h2><%= pluralize(@user.errors.count, "error") %> occured in your input:</h2>
+			<ul style="list-style-type: none;">
+				<% @user.errors.each do |error| %>
+					<li>-- <%= error.message %></li>
+				<% end %>
+			</ul>
+		</div>
 	<% end %>
 </div>
-<% if @user.errors.any? %>
-  <div id="error_explanation" style="color: red;">
-    <h2><%= pluralize(@user.errors.count, "error") %> occured in your input:</h2>
-    <ul>
-      <% @user.errors.each do |error| %>
-        <li><%= error.message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>

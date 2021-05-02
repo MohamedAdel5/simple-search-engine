@@ -1,9 +1,15 @@
-<h1>Welcome</h1>
-<% if logged_in? %>    
-<h1>Welcome, <%= current_user.name %>!</h1>
-<%= button_to "Logout", '/users/logout', method: :get%>
+<%= button_to "Logout", '/users/logout', method: :post, class: "btn btn-primary"%>
+<div class="container">
+	<h1 class="text-center">Welcome</h1>
+	<% if logged_in? %>    
+	<h1 class="text-center">Welcome, <%= current_user.name %>!</h1>
 
-<% else %>
-	<%= button_to "Login", '/users/login', method: :get%>
-	<%= button_to "Sign Up", '/users/signup', method: :get%>
-<%end%>
+	<% else %>
+		<div class="card text-center mt-5">
+		<ul class="list-group">
+			<li class="list-group-item"><button class="btn btn-lg btn-primary"><%= link_to "Login", '/users/login', class: "text-white text-decoration-none"%></button></li>
+			<li class="list-group-item"><button class="btn btn-lg btn-primary"><%= link_to "Signup", '/users/signup', class: "text-white text-decoration-none"%></button></li>
+		</ul>
+		</div>
+	<%end%>
+</div>

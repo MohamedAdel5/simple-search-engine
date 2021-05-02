@@ -1,0 +1,81 @@
+<%= button_to "Profile", '/users/index', method: :get, class: "btn btn-primary"%>
+<div class="container">
+	<h1>Search</h1>
+	<div class="pa-2">
+	<%= form_with model: @search, url: searches_path(@search) do |f| %>
+		<div class="form-group">
+			<%= f.label :word%>
+			<%= f.text_field :word,  class: 'form-control' %>
+		</div>
+		<div class="form-group">
+			<%= f.label :start_url%>
+			<%= f.text_field :start_url, class: 'form-control' %>
+		</div>
+		<div class="form-group">
+			<%= f.label :maximum_number_of_urls_for_crawling%>
+			<%= f.text_field :max_urls_count, class: 'form-control' %>
+		</div>
+		<div class="form-group">
+			<%= f.submit "Search", class: "btn btn-primary" %>
+		</div>
+	<%end%>
+	</div>
+
+	<% if @search.errors.any? %>
+		<div id="error_explanation" style="color: red;">
+			<h2><%= pluralize(@search.errors.count, "error") %> occured in your input:</h2>
+			<ul style="list-style-type: none;">
+				<% @search.errors.each do |error| %>
+					<li>-- <%= error.message %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<% if !@total_index.nil? &&  %>
+		<div class="container">
+			<h2>Documents that have the word: <b>"<%=@searched_word%>"</b><br></h2>
+				<% @total_index[@searched_word.downcase].each do |doc| %>
+				<ul class="list-group">
+					<li class="list-group-item">Document URL: <a href="<%=doc[:document] %>"><%=doc[:document] %></a></li>
+					<li class="list-group-item">Word occurrence count in the document: <%=doc[:count]%></li>
+				</ul>
+				<% end %>	
+				<!-- <p><%= @total_index[@searched_word.downcase] %></p> -->
+		</div>
+
+		<div class="container py-4">
+			<h2>The Crawled Urls</h2>
+			<ul class="list-group" style="list-style-type: none">
+				<% @crawler_urls.each do |url| %>
+					<li>-- <a href="<%=url%>"><%=url%></a></li>
+				<% end %>
+			</ul>
+		</div>
+		
+		<div class="container py-4">
+			<h2>The Complete Index</h2>
+			<!-- <%= debug @total_index %> -->
+			<ul class="list-group">
+				<% @total_index.each do |word, docs_array| %>
+					<li class="list-group-item">					
+						<h4><b><%=word%>:</b></h4>
+						<% @total_index[word].each do |doc| %>
+						<div class="py-2">
+							<ul class="list-group">
+								<li class="list-group-item">Document URL: <a href="<%=doc[:document] %>"><%=doc[:document] %></a></li>
+								<li class="list-group-item">Word occurrence count: <%=doc[:count]%></li>
+							</ul>
+						</div>
+						<% end %>	
+					</li>
+				<% end %> 
+			</ul>
+		</div>
+
+	<%else%>
+		<p>No words found!</p>
+	<% end %>
+
+
+</div>

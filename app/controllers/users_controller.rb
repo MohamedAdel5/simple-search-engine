@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
   def index
-		# @user = User.find(params[:id])
+		@searches = Search.where(:user_id => current_user.id)
   end
 end

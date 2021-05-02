@@ -1,18 +1,26 @@
-<h1>Login</h1>
-<%= form_tag '/users/login' do %>
-	<%= label_tag :username%>
-	<%= text_field_tag :username %> <br>
-	<%= label_tag :password%>
-	<%= password_field_tag :password%><br>
-	<%= submit_tag "Login"%>
-<%end%>
-<% if @user.errors.any? %>
-  <div id="error_explanation" style="color: red;">
-    <h2><%= pluralize(@user.errors.count, "error") %> occured in your input:</h2>
-    <ul>
-      <% @user.errors.each do |error| %>
-        <li><%= error.message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<div class="container">
+	<h1>Login</h1>
+	<%= form_with model: @user, url: users_login_path(@user) do |f| %>
+		<div class="form-group">
+			<%= f.label :username%>
+			<%= f.text_field :username, class: 'form-control' %>
+		</div>
+		<div class="form-group">
+			<%= f.label :password%>
+			<%= f.password_field :password, class: 'form-control'%>
+		</div>
+		<div class="form-group">
+			<%= f.submit "Login", class: "btn btn-primary"%>
+		</div>
+	<%end%>
+	<% if @user.errors.any? %>
+		<div class="container" id="error_explanation" style="color: red;">
+			<h2><%= pluralize(@user.errors.count, "error") %> occured in your input:</h2>
+			<ul style="list-style-type: none;">
+				<% @user.errors.each do |error| %>
+					<li>-- <%= error.message %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+</div>

@@ -4,7 +4,6 @@ class AuthController < ApplicationController
 
 	def signupView
 		if(logged_in?) 
-			# redirect_to '/users/index'
       redirect_to users_index_path
 		else
 			@user ||= User.new
@@ -17,10 +16,8 @@ class AuthController < ApplicationController
     if @user.valid?
       @user.save
       session[:user_id] = @user.id
-      # redirect_to '/users/index'
       redirect_to users_index_path
     else  
-      # redirect_to '/users/signup'
 			render 'signupView'
     end
   end
@@ -28,7 +25,6 @@ class AuthController < ApplicationController
 
   def loginView
 		if(logged_in?) 
-			# redirect_to '/users/index'
       redirect_to users_index_path
 		else
 			@user ||= User.new
@@ -36,13 +32,12 @@ class AuthController < ApplicationController
   end
 
 	def login
-		@user = User.find_by(username: params[:username])	
-    if @user && @user.authenticate(params[:password])
+		user_params = params.require(:user).permit(:username, :password)
+		@user = User.find_by(username: user_params[:username])
+    if @user && @user.authenticate(user_params[:password])
       session[:user_id] = @user.id
-      # redirect_to @user
       redirect_to users_index_path
     else  
-      # redirect_to users_login_path
 			render 'loginView'
     end
   end
@@ -53,4 +48,5 @@ class AuthController < ApplicationController
 			@session = session[:user_id]
 			redirect_to welcome_index_path
 	end
+
 end
