@@ -4,10 +4,10 @@
 	<p class="text-center">Welcome, <%= current_user.name %>!</p>
 
 		<div class="container mt-5 ma-2">
-			<div class="row">
+			<div class="row my-2">
 				<h2 class="col-10">You searched for: </h2>
 				<div class="col-2">
-					<%= button_to "Search", '/searches', method: :get, class: "btn btn-primary"%>
+					<button class="btn btn-primary"><%= link_to "Search", '/searches', class: "text-white text-decoration-none"%></button>
 				</div>
 			</div>
 			<div class="card container pa-2">
