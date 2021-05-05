@@ -1,7 +1,7 @@
 <%= button_to "Logout", '/users/logout', method: :post, class: "btn btn-primary"%>
 <div class="container">
 	<h1  class="text-center">Profile</h1>
-	<p class="text-center">Welcome, <%= current_user.name %>!</p>
+	<p class="text-center">Welcome, <%= current_user["name"] %>!</p>
 
 		<div class="container mt-5 ma-2">
 			<div class="row my-2">

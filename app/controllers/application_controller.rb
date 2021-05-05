@@ -6,9 +6,12 @@ class ApplicationController < ActionController::Base
 	helper_method :logged_in?
 
 	def current_user   
-		if session[:user_id]
-      @c_user = User.find(session[:user_id]) # current user
-    end
+		# if session[:user_id]
+    #   @c_user = User.find(session[:user_id]) # current user
+    # end
+
+		# instead of getting the user everytime from the db, you get it from the session store (redis)
+		return session[:user]
 	end
 
 	def logged_in?     

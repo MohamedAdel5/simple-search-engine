@@ -14,7 +14,7 @@ class SearchesController < ApplicationController
 		search_params = params.require(:search).permit(:word, :start_url, :max_urls_count)
 		#insert search to users db
 		new_search = params.require(:search).permit(:word, :start_url)
-		new_search["user_id"] = current_user.id
+		new_search["user_id"] = current_user["id"]
 		@search = Search.create(new_search)
 		if @search.valid?
       @search.save

@@ -25,10 +25,14 @@ Rails.application.configure do
       'Cache-Control' => "public, max-age=#{2.days.to_i}"
     }
   else
-    config.action_controller.perform_caching = false
+    config.action_controller.perform_caching = true
 
-    config.cache_store = :null_store
-  end
+    # config.cache_store = :null_store
+		config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'] }
+  end	
+
+	# enable caching in session store
+	config.session_store :cache_store, key: ENV['APP_SESSION_KEY']
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
@@ -73,4 +77,7 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+	# Route exceptions to the application router vs. default
+	config.exceptions_app = self.routes
 end

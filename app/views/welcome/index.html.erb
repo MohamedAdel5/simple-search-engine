@@ -2,7 +2,7 @@
 <div class="container">
 	<h1 class="text-center">Welcome</h1>
 	<% if logged_in? %>    
-	<h1 class="text-center">Welcome, <%= current_user.name %>!</h1>
+	<h1 class="text-center">Welcome, <%= current_user["name"] %>!</h1>
 
 	<% else %>
 		<div class="card text-center mt-5">

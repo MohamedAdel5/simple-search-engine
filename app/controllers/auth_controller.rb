@@ -15,7 +15,8 @@ class AuthController < ApplicationController
 		@user = User.create(user_params)
     if @user.valid?
       @user.save
-      session[:user_id] = @user.id
+      # session[:user_id] = @user.id
+			session[:user] = @user
       redirect_to users_index_path
     else  
 			render 'signupView'
@@ -35,7 +36,8 @@ class AuthController < ApplicationController
 		user_params = params.require(:user).permit(:username, :password)
 		@user = User.find_by(username: user_params[:username])
     if @user && @user.authenticate(user_params[:password])
-      session[:user_id] = @user.id
+      # session[:user_id] = @user.id
+			session[:user] = @user
       redirect_to users_index_path
     else  
 			render 'loginView'
@@ -43,9 +45,9 @@ class AuthController < ApplicationController
   end
 
 	def logout
-			session[:user_id] = nil
-			@c_user = session[:user_id]
-			@session = session[:user_id]
+			# session[:user_id] = nil
+			@session = nil
+			session[:user] = nil
 			redirect_to welcome_index_path
 	end
 

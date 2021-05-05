@@ -15,4 +15,11 @@ Rails.application.routes.draw do
   get '/searches', to: 'searches#searchView'
   post '/searches', to: 'searches#search'
 
+	# error pages
+	%w( 404 422 500 503 ).each do |code|
+		get code, :to => "errors#show", :code => code
+	end
+
+	get '*path', to: "errors#show"
+
 end
